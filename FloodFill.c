@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Queue.h"
+#include "LinkedList.h"
 #include "FloodFill.h"
 
 void floodFillMaze(int startCell_x, int startCell_y, int maze[Y_DIM][X_DIM], int wall[Y_DIM][X_DIM])
@@ -13,35 +13,35 @@ void floodFillMaze(int startCell_x, int startCell_y, int maze[Y_DIM][X_DIM], int
 }
 void floodFillBFS(int startCell_x, int startCell_y, int maze[Y_DIM][X_DIM], int wall[Y_DIM][X_DIM])
 {
-    Queue *queue = createQueue();
-    Node node= {startCell_x,startCell_y};
+    List *queue = createQueue();
+    data node= {startCell_x,startCell_y};
     maze[startCell_y][startCell_x] = 0;
     enqueue(queue,node);
     while(!isEmpty(queue))
     {
-        Node checkNode = dequeue(queue);
+        data checkNode = dequeue(queue);
         if(checkNode.x>0 && maze[checkNode.y][checkNode.x - 1]==0 && !(wall[checkNode.y][checkNode.x] & 0b1000))
         {
             maze[checkNode.y][checkNode.x - 1] = maze[checkNode.y][checkNode.x] + 1;
-            Node newNode={checkNode.x - 1,checkNode.y};
+            data newNode={checkNode.x - 1,checkNode.y};
             enqueue(queue,newNode);
         }
         if(checkNode.x<(X_DIM-1) && maze[checkNode.y][checkNode.x +1]==0 && !(wall[checkNode.y][checkNode.x] & 0b0010))
         {
             maze[checkNode.y][checkNode.x + 1] = maze[checkNode.y][checkNode.x] + 1;
-            Node newNode={checkNode.x + 1,checkNode.y};
+            data newNode={checkNode.x + 1,checkNode.y};
             enqueue(queue,newNode);
         }
         if(checkNode.y>0 && maze[checkNode.y-1][checkNode.x]==0 && !(wall[checkNode.y][checkNode.x] & 0b0100))
         {
             maze[checkNode.y-1][checkNode.x] = maze[checkNode.y][checkNode.x] + 1;
-            Node newNode={checkNode.x,checkNode.y - 1};
+            data newNode={checkNode.x,checkNode.y - 1};
             enqueue(queue,newNode);
         }
         if(checkNode.y<(Y_DIM-1) && maze[checkNode.y+1][checkNode.x]==0 && !(wall[checkNode.y][checkNode.x] & 0b0001))
         {
             maze[checkNode.y+1][checkNode.x] = maze[checkNode.y][checkNode.x] + 1;
-            Node newNode={checkNode.x,checkNode.y + 1};
+            data newNode={checkNode.x,checkNode.y + 1};
             enqueue(queue,newNode);
         }
     }
