@@ -13,7 +13,7 @@ void floodFillMaze(int startCell_x, int startCell_y, int maze[Y_DIM][X_DIM], int
 }
 void floodFillBFS(int startCell_x, int startCell_y, int maze[Y_DIM][X_DIM], int wall[Y_DIM][X_DIM])
 {
-    List *queue = createQueue();
+    List *queue = createLinkedList();
     data node= {startCell_x,startCell_y};
     maze[startCell_y][startCell_x] = 0;
     enqueue(queue,node);
