@@ -229,14 +229,14 @@ void UpdateWalls(int wall[Y_DIM][X_DIM])
         break;
     }
     wall[Y][X] = Wall_state;
-    if(Y<Y_DIM - 1 && wall[Y+1][X] == 0)
-        wall[Y+1][X] = Neighbour_state[0];
-    if(Y<X_DIM - 1 && wall[Y][X+1] == 0)
-        wall[Y][X+1] = Neighbour_state[1];
-    if(Y>0 && wall[Y-1][X] == 0 )
-        wall[Y-1][X] = Neighbour_state[2];
-    if(X>0 && wall[Y][X-1] == 0) 
-        wall[Y][X-1] = Neighbour_state[3];
+    if(Y<Y_DIM - 1 && !(wall[Y+1][X] & Neighbour_state[0]))
+        wall[Y+1][X] += Neighbour_state[0];
+    if(Y<X_DIM - 1 && !(wall[Y][X+1] & Neighbour_state[1]))
+        wall[Y][X+1] += Neighbour_state[1];
+    if(Y>0 && !(wall[Y-1][X] & Neighbour_state[2]))
+        wall[Y-1][X] += Neighbour_state[2];
+    if(X>0 && !(wall[Y][X-1] & Neighbour_state[3])) 
+        wall[Y][X-1] += Neighbour_state[3];
     for(int j=0;j<Y_DIM;j++)
     {
         for(int k =0;k<X_DIM;k++)
