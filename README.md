@@ -6,7 +6,7 @@ This project contains a driver code of a simulated micromouse which runs in a ma
 
 
 
-![](https://github.com/bluecoffee093/modified-floodfill/modified-floodfill.gif)
+![](https://github.com/bluecoffee093/modified-floodfill/blob/main/modified-floodfill.gif)
 
 
 
