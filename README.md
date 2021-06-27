@@ -6,6 +6,10 @@ This project contains a driver code of a simulated micromouse which runs in a ma
 
 
 
+![](https://github.com/bluecoffee093/modified-floodfill/modified-floodfill.gif)
+
+
+
 ## Simulation Software:
 
 * This project uses a simulation software [`mackorone/mms `](https://github.com/mackorone/mms) **credits: [Mackorone](https://github.com/mackorone)**
