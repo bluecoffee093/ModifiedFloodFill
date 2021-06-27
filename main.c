@@ -55,7 +55,7 @@ int findMinimum(int a,int b,int c,int d, int reference)
 }
 void displayCellValues(int value[Y_DIM][X_DIM]);
 void UpdateWalls(int wall[Y_DIM][X_DIM]);
-char findNextNeighbour(int current_X,int current_Y,int maze[Y_DIM][X_DIM],int wall[Y_DIM][X_DIM]);
+char findNextNeighbour(int current_X,int current_Y,int maze[Y_DIM][X_DIM],int wall[Y_DIM][X_DIM], char prevMove);
 void moveToNextNode(int current_X,int current_Y,char move);
 
 
@@ -71,7 +71,7 @@ int main()
         UpdateWalls(wall);
         floodFillMaze(X_DIM/2,Y_DIM/2,maze,wall);
         displayCellValues(maze);
-        char move=findNextNeighbour(X,Y,maze,wall);
+        char move=findNextNeighbour(X,Y,maze,wall,move);
         //fprintf(stderr,"MOVE=%c\t",move);
         //fflush(stderr);
         moveToNextNode(X,Y,move);
@@ -80,14 +80,19 @@ int main()
 }
 
 
-char findNextNeighbour(int current_X,int current_Y,int maze[Y_DIM][X_DIM],int wall[Y_DIM][X_DIM])
+char findNextNeighbour(int current_X,int current_Y,int maze[Y_DIM][X_DIM],int wall[Y_DIM][X_DIM], char prevMove)
 {
-   int min = findMinimum( (current_X > 0) ? maze[current_Y][current_X-1] : INT_MAX,
+   int min = findMinimum( 
+                (current_X > 0) ? maze[current_Y][current_X-1] : INT_MAX,
                 (current_Y > 0) ? maze[current_Y-1][current_X] : INT_MAX,
                 (current_X < X_DIM-1) ? maze[current_Y][current_X+1] : INT_MAX,
                 (current_Y < Y_DIM-1) ? maze[current_Y + 1][current_X] : INT_MAX,
                 maze[current_Y][current_X]
    );
+   if(maze[current_Y][current_X] == Y_DIM*X_DIM + 1)
+   {
+        return 'b'; 
+   }
    switch (dir)
    {
    case 0:
@@ -290,7 +295,8 @@ void moveToNextNode(int current_X,int current_Y,char move)
     {
         fprintf(stderr,"ERROR!");
         fflush(stderr);
-        exit(1);
+        while (1);
+        
     }
     API_moveForward();
     //fprintf(stderr,"CRASH = %d\n", !API_moveForward());
