@@ -1,5 +1,6 @@
 #define X_DIM 16
 #define Y_DIM 16
+//define #define DEBUG
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,8 +73,6 @@ int main()
         floodFillMaze(X_DIM/2,Y_DIM/2,maze,wall);
         displayCellValues(maze);
         char move=findNextNeighbour(X,Y,maze,wall,move);
-        //fprintf(stderr,"MOVE=%c\t",move);
-        //fflush(stderr);
         moveToNextNode(X,Y,move);
     }
     return 0;
@@ -242,6 +241,7 @@ void UpdateWalls(int wall[Y_DIM][X_DIM])
         wall[Y-1][X] += Neighbour_state[2];
     if(X>0 && !(wall[Y][X-1] & Neighbour_state[3])) 
         wall[Y][X-1] += Neighbour_state[3];
+    #ifdef DEBUG
     for(int j=0;j<Y_DIM;j++)
     {
         for(int k =0;k<X_DIM;k++)
@@ -254,6 +254,7 @@ void UpdateWalls(int wall[Y_DIM][X_DIM])
     }
     fprintf(stderr,"\n\n\n");
     fflush(stderr);
+    #endif
 }
 void moveToNextNode(int current_X,int current_Y,char move)
 {
